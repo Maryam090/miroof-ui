@@ -1,0 +1,81 @@
+.react-bootstrap-table table thead tr th {
+    width: auto;
+    padding-top: 12px;
+    padding-bottom: 10px;
+    padding-left: 24px;
+    padding-right: 24px;
+    text-align: left;
+    font-size: 1rem;
+    border-bottom: 0.0625rem solid #e9ecef;
+    opacity: 0.9;
+    background: transparent;
+    color: #344767;
+}
+.react-bootstrap-table table thead tr th label{
+    display: block;
+}
+.react-bootstrap-table table thead tr th .text-filter{
+    margin-top: 15px;     
+    font-size: 0.875rem;
+}
+.react-bootstrap-table table tbody {
+    margin: 0;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: 0.03333em;
+    opacity: 1;
+    text-transform: none;
+    vertical-align: unset;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    color: #67748e;
+    font-weight: 500;
+}
+.react-bootstrap-table table tbody tr td {
+    padding-top: 12px;
+    padding-bottom: 10px;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+.react-bootstrap-table-pagination {
+    padding-left: 24px;
+    padding-right: 24px;
+    margin-bottom: 20px;
+}
+.react-bootstrap-table-pagination .react-bootstrap-table-page-btns-ul {
+    float: right;
+    font-size: 0.875rem !important;
+}
+.react-bootstrap-table-pagination .pagination {
+    --bs-pagination-font-size : 0.875rem !important;
+}
+.react-bootstrap-table-pagination #pageDropDown {
+    font-size: 0.875rem !important;
+    background-color: white;
+    color: #495057;
+    border: 0.0625rem solid #d2d6da;
+}
+.react-bootstrap-table-pagination-total {
+    margin-left: 15px;
+    font-size: 0.875rem !important;
+    color: #495057;
+}
+.modal-backdrop.show{
+    z-index: 9999;
+}
+.modal{
+    z-index: 9999;
+}
+.modal-content {
+    color: #495057;
+    font-size: 1rem !important;
+}
+.modal-content .modal-title {
+    font-size: 20px ;
+}
+.react-bootstrap-table-pagination .dropdown-menu {
+    position: absolute;
+    top: -130px;  }
+  

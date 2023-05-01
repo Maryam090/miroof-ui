@@ -1,0 +1,119 @@
+import React from "react";
+import { useState } from "react";
+import { Modal, Button, Form } from "react-bootstrap";
+import PropTypes from "prop-types";
+import SoftButton from "components/SoftButton";
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
+import { postData } from "../../api";
+import { SAVE_COMPANY } from "../../constants";
+
+function ProductModal(props) {
+  const { showModal, handleCloseModal } = props;
+  const [validated, setValidated] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setError] = useState(false);
+  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState({
+    productName: "",
+    description: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    const form = event.currentTarget;
+    event.preventDefault();
+    event.stopPropagation();
+    if (form.checkValidity()) {
+      setIsLoading(true);
+      const { message, isError, isSuccess } = await postData(SAVE_COMPANY, formData);
+      setMessage(message);
+      setError(isError);
+      setIsLoading(false);
+      if (isSuccess) {
+        props.handleCloseModal();
+      }
+    }
+
+    setValidated(true);
+  };
+
+  return (
+    <Modal
+      show={showModal}
+      onHide={handleCloseModal}
+      aria-labelledby="contained-modal-title-vcenter"
+    >
+      <Modal.Header closeButton onClick={handleCloseModal}>
+        <Modal.Title> Add Product </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form onSubmit={handleSubmit} noValidate validated={validated}>
+          <Form.Group className="mb-3" controlId="formProductName">
+            <Form.Label>Product Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="productName"
+              placeholder="Enter product name"
+              value={formData.productName}
+              onChange={handleChange}
+              required
+            />
+            <Form.Control.Feedback type="invalid">Product name is required.</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formDescriptionAddress">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              required
+              name="description"
+              as="textarea"
+              rows={3}
+              placeholder="Enter description"
+              value={formData.description}
+              onChange={handleChange}
+            />
+            <Form.Control.Feedback type="invalid">Description is required.</Form.Control.Feedback>
+          </Form.Group>
+          {hasError && !isLoading && (
+            <Stack sx={{ width: "100%" }} spacing={2} pb={3}>
+              <Alert severity="error" variant="outlined" size="md">
+                {message}
+              </Alert>
+            </Stack>
+          )}
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <div className="d-flex justify-content-end w-100">
+          <Button onClick={handleCloseModal} className="me-2" variant="light">
+            Close
+          </Button>
+          <SoftButton
+            component="button"
+            disabled={isLoading}
+            variant="gradient"
+            color="dark"
+            type="submit"
+          >
+            {isLoading ? "Saving..." : "Save"}
+          </SoftButton>
+        </div>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
+ProductModal.propTypes = {
+  showModal: PropTypes.bool.isRequired,
+  handleCloseModal: PropTypes.func.isRequired,
+  onHide: PropTypes.func.isRequired,
+};
+export default ProductModal;
